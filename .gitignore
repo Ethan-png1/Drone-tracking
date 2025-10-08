@@ -1,0 +1,21 @@
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Virtual environment
+airsim_env/
+
+# Dataset files (usually large)
+Datasets/*
+
+# Model weights
+Models/*.pt
+Models/*.weights
+
+# VSCode / IDE files
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+m
