@@ -1,0 +1,9 @@
+path: C:\Users\jegma\OneDrive\Desktop\SD\Ethan-dev\Datasets
+
+train: autosplit_train.txt
+val: autosplit_val.txt
+
+
+
+nc: 1
+names: ['drone']
