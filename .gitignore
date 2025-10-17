@@ -19,3 +19,7 @@ Models/*.weights
 .DS_Store
 Thumbs.db
 m
+
+# Python virtual env
+venv/
+
