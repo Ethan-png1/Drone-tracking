@@ -1,7 +1,8 @@
-path: C:\Users\jegma\OneDrive\Desktop\SD\Ethan-dev\Datasets
+path: C:\\Users\\jegma\\OneDrive\\Desktop\\SD\\Ethan-dev\\Datasets\\GigaSet
 
-train: autosplit_train.txt
-val: autosplit_val.txt
+train: train/images
+val: val/images
+test: test/images
 
 
 
