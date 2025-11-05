@@ -106,13 +106,13 @@ def main():
 
     MAP_DATASET1 = { '0': '0' } 
     
-    # e.g., Dataset 2: 0=drones, 1=planes, 2=helicopter
+    
     MAP_DATASET2 = { '1': '0' } 
     
-    # e.g., Dataset 3: 0=drones
+   
     MAP_DATASET3 = { '1': '0' } 
     
-    # e.g., Dataset 4: 1=drones (if its old class was 1)
+    
     MAP_DATASET4 = { '0': '0' }
 
     new_dir_name = input("What is the name of the new dataset: ")
