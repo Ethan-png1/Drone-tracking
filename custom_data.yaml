@@ -1,10 +1,15 @@
-path: C:\\Users\\jegma\\OneDrive\\Desktop\\SD\\Ethan-dev\\Datasets\\GigaSet
+path: C:\\Users\\jegma\\OneDrive\\Desktop\\SD\\Ethan-dev\\Datasets\\Drone_dataset_smallobj
 
 train: train/images
 val: val/images
 test: test/images
 
+nc: 3
+names: ['drone', '1', '2']
 
-
-nc: 1
-names: ['drone']
+roboflow:
+  workspace: dev-cpn6o
+  project: drone-t6udf-dlth9
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dev-cpn6o/drone-t6udf-dlth9/dataset/1
