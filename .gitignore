@@ -8,9 +8,6 @@ airsim_env/
 # Dataset files (usually large)
 Datasets/*
 
-# Model weights
-Models/*.pt
-Models/*.weights
 
 # VSCode / IDE files
 .vscode/
