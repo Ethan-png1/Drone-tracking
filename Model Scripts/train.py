@@ -3,6 +3,9 @@ from ultralytics import YOLO
 def train(intial_model, model_name):
     model = YOLO(intial_model)
 
+    # use if your pre-loading a model
+    model = model.load('yolov8n.pt')
+
     results = model.train(
         data="../custom_data.yaml", 
         epochs= 75, 
@@ -19,8 +22,7 @@ def train(intial_model, model_name):
 def main():
     
     model_matrix = [
-        ['yolo11n.pt', 'yolo11n_compare'],
-        ['yolov10n.pt', 'yolov10n_compare']
+        ['yolov8n-p2.yaml','yolov8P2']
     ]
 
     for model in model_matrix:
