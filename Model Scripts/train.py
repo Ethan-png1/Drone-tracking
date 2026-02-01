@@ -1,42 +1,37 @@
 from ultralytics import YOLO
 
-def train(model_weights, output_name):
-    model = YOLO(model_weights)
+def main():
+    model = YOLO("yolov8m.pt")
 
-    freeze_layers = 10 if ('yolov8l' in model_weights or 'yolov8x' in model_weights) else 0
+    
 
     results = model.train(
-        data="../custom_data.yaml", 
-        epochs= 75, 
+
+        data="../custom_data.yaml",
+
+        # --- DURATION ---
+        epochs=300,          
+        patience=50,         
+        
+        # --- HARDWARE ---
         imgsz=640,
-        batch=-1,                  
-        workers=8,                  
-        optimizer='AdamW',
+        batch=-1,            
+        workers=8,
+        device=0,            
+        
+        # --- HYPERPARAMETERS ---
+        optimizer='auto',    
+        cos_lr=True,         
+        mixup=0.1,          
+        
+        # --- SYSTEM ---
         project="../Models/runs",
-        name=output_name,
-
-        patience=10,
-
-        freeze=freeze_layers
+        name="yolov8_89k_run",  
+        
+        # --- MEMORY SAFETY ---
+        cache=False,                     
     )
 
-def main():
-    
-    model_matrix = [
-        ['yolov8n.pt', 'yolov8_Nano'],
-        ['yolov8s.pt', 'yolov8_Small'],
-        ['yolov8m.pt', 'yolov8_Medium'],
-        ['yolov8l.pt', 'yolov8_Large'],
-        ['yolov8x.pt', 'yolov8_XLarge']
-    ]
-
-    for entry in model_matrix:
-        weights = entry[0]
-        name = entry[1]
-        
-       
-        train(weights, name)
-    
 
 if __name__ =='__main__':
     main()

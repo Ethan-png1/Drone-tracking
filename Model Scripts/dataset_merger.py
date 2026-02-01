@@ -107,13 +107,13 @@ def main():
     MAP_DATASET1 = { '0': '0' } 
     
     
-    MAP_DATASET2 = { '1': '0' } 
+    MAP_DATASET2 = { '0': '0' } 
     
    
-    MAP_DATASET3 = { '1': '0' } 
+    # MAP_DATASET3 = { '0': '0' } 
     
     
-    MAP_DATASET4 = { '0': '0' }
+    # MAP_DATASET4 = { '0': '0' }
 
     new_dir_name = input("What is the name of the new dataset: ")
 
@@ -135,14 +135,14 @@ def main():
     if datasets:
         for root, dirs, files in os.walk(datasets, topdown=True):
             current_map = None
-            if "Anti drone hybrid image dataset" in root: # CHANGE THIS
+            if "GigaSet" in root: # CHANGE THIS
                 current_map = MAP_DATASET1
-            elif "updated dataset" in root: # CHANGE THIS
+            elif "RealWorld(UAV)" in root: # CHANGE THIS
                 current_map = MAP_DATASET2
-            elif "Drone dataset with birds and whatnot" in root: # CHANGE THIS
-                current_map = MAP_DATASET3
-            elif "dataset" in root: # CHANGE THIS
-                current_map = MAP_DATASET4
+            #elif "Drone dataset with birds and whatnot" in root: # CHANGE THIS
+                #current_map = MAP_DATASET3
+            #elif "dataset" in root: # CHANGE THIS
+                #current_map = MAP_DATASET4
             
             if current_map is None:
             # This skips folders that don't match, like the root folder
