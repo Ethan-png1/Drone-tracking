@@ -4,14 +4,14 @@ from ultralytics import YOLO
 
 def main():
     # 1. Load your best model
-    model = YOLO('../Models/runs/yolov8compare/best_v8n.pt')
+    model = YOLO('../Models/runs/yolov8_89k_run/weights/best.pt')
 
     # 2. CONFIGURATION
     # REPLACE THIS with the actual path to your video file
-    video_path = r"C:\Users\jegma\OneDrive\Desktop\SD\Ethan-dev\Datasets\videos\video.mp4" 
+    video_path = r"D:\SD\Ethan-dev\Datasets\videos\video.mp4" 
     
     # Where to save the images
-    output_folder = '../Models/runs/yolov8compare/video_frames_export'
+    output_folder = '../Models/runs/yolov8_89k_run/video_results'
     
     # How often to save a frame? (30 = save 1 frame per second if video is 30fps)
     # Set this to 1 if you want EVERY single frame (Warning: creates thousands of files)

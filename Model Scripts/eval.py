@@ -1,12 +1,12 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO('..Models/runs/yolov8compare/best_v8n.pt')
+    model = YOLO('../Models/runs/yolov8_89k_run/weights/best.pt')
 
     metrics = model.val(
         data='../custom_data.yaml', 
         split='val',
-        project='../Models/runs/yolov8compare/validation_results',  # Main folder
+        project='../Models/runs/yolov8_89k_run/validation_results',  # Main folder
     )
 
     print("Performance on Validation Set:")
