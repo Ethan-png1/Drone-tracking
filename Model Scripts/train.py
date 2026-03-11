@@ -10,8 +10,8 @@ def main():
         data="../custom_data.yaml",
 
         # --- DURATION ---
-        epochs=300,          
-        patience=50,         
+        epochs=150,          
+        patience=15,         
         
         # --- HARDWARE ---
         imgsz=640,
@@ -22,11 +22,11 @@ def main():
         # --- HYPERPARAMETERS ---
         optimizer='auto',    
         cos_lr=True,         
-        mixup=0.1,          
+        mixup=0.0,          
         
         # --- SYSTEM ---
         project="../Models/runs",
-        name="yolov8_89k_run",  
+        name="yolov8_Drone_V2",  
         
         # --- MEMORY SAFETY ---
         cache=False,                     
