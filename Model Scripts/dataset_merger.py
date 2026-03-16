@@ -107,7 +107,7 @@ def main():
     MAP_DATASET1 = { '0': '0' } 
     
     
-    MAP_DATASET2 = { '0': '0' } 
+    # MAP_DATASET2 = { '0': '0' } 
     
    
     # MAP_DATASET3 = { '0': '0' } 
@@ -134,11 +134,11 @@ def main():
 
     if datasets:
         for root, dirs, files in os.walk(datasets, topdown=True):
-            current_map = None
-            if "GigaSet" in root: # CHANGE THIS
-                current_map = MAP_DATASET1
-            elif "RealWorld(UAV)" in root: # CHANGE THIS
-                current_map = MAP_DATASET2
+            current_map = MAP_DATASET1
+            #if "GigaSet" in root: # CHANGE THIS
+                # current_map = MAP_DATASET1
+            #elif "RealWorld(UAV)" in root: # CHANGE THIS
+                # current_map = MAP_DATASET2
             #elif "Drone dataset with birds and whatnot" in root: # CHANGE THIS
                 #current_map = MAP_DATASET3
             #elif "dataset" in root: # CHANGE THIS

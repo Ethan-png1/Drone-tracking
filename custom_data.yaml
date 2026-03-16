@@ -1,8 +1,8 @@
-path: D:\\SD\\Ethan-dev\\Datasets\\BeefSet
+path: D:/SD/Ethan-dev/Datasets/Droneset
 
-train: train/images
-val: val/images
-test: test/images
+train: autosplit_train.txt
+val: autosplit_val.txt
+test: autosplit_test.txt
 
 nc: 1
 names: ['drone']
