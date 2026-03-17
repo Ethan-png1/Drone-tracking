@@ -20,3 +20,5 @@ m
 # Python virtual env
 venv/
 
+.vs/
+
