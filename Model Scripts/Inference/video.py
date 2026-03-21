@@ -4,31 +4,23 @@ from ultralytics import YOLO
 
 def main():
     # 1. Load your best model
-    model = YOLO('../Models/runs/yolov8_89k_run/weights/best.pt')
+    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V4\weights\best.pt')
 
     # 2. CONFIGURATION
     # REPLACE THIS with the actual path to your video file
-    video_path = r"D:\SD\Ethan-dev\Datasets\videos\video.mp4" 
+    video_path = r"D:\SD\Ethan-dev\Datasets\videos\dronesim.mp4" 
     
-    # Where to save the images
-    output_folder = '../Models/runs/yolov8_89k_run/video_results'
-    
-    # How often to save a frame? (30 = save 1 frame per second if video is 30fps)
-    # Set this to 1 if you want EVERY single frame (Warning: creates thousands of files)
-    frame_interval = 30 
+    # How often to process a frame? (Set this to 1 for smooth video playback)
+    frame_interval = 1 
 
-    # 3. Create output folder
-    os.makedirs(output_folder, exist_ok=True)
-
-    # 4. Open the video
+    # 3. Open the video
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         print(f"Error: Could not open video at {video_path}")
         return
 
     frame_count = 0
-    saved_count = 0
-    print(f"Processing video... saving every {frame_interval}th frame.")
+    print(f"Playing video... rendering every {frame_interval}th frame. Press 'q' to quit.")
 
     while True:
         success, frame = cap.read()
@@ -49,18 +41,18 @@ def main():
             # line_width=2 keeps boxes thin so they don't cover the drone
             annotated_frame = results[0].plot(line_width=2)
 
-            # Save the image to your folder
-            filename = f"frame_{frame_count:05d}.jpg"
-            save_path = os.path.join(output_folder, filename)
-            cv2.imwrite(save_path, annotated_frame)
-            
-            saved_count += 1
-            print(f"Saved: {filename}")
+            # Display the annotated frame
+            cv2.imshow("YOLOv8 Inference", annotated_frame)
+
+            # Break the loop if 'q' is pressed
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
         frame_count += 1
 
     cap.release()
-    print(f"\nDone! Saved {saved_count} images to:\n{output_folder}")
+    cv2.destroyAllWindows()
+    print("\nDone! Video playback finished.")
 
 if __name__ == '__main__':
     main()

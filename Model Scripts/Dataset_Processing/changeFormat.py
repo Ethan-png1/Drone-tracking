@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO('best.pt')
+    model = YOLO('../Models/best.pt')
 
     model.export(
         format='onnx', 

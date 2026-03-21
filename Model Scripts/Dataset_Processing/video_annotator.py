@@ -3,7 +3,7 @@ import os
 
 # --- CONFIGURATION ---
 # Change this to the path of your video file
-VIDEO_PATH = r"D:\SD\Ethan-dev\Datasets\videos\2026-03-17 18-57-21.mp4"
+VIDEO_PATH = r"D:\SD\Ethan-dev\Datasets\videos\2026-03-17 20-04-58.mp4"
 
 # Folders where the extracted images and corresponding YOLO labels will be saved
 OUTPUT_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\custom_dataset\images"
@@ -11,7 +11,7 @@ OUTPUT_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\custom_dataset\labels"
 
 # How many frames to skip (e.g., 30 means we only look at 1 frame every second for a 30fps video)
 # Set to 1 if you want to look at every single frame.
-FRAME_INTERVAL = 10 
+FRAME_INTERVAL = 30 
 
 os.makedirs(OUTPUT_IMG_DIR, exist_ok=True)
 os.makedirs(OUTPUT_LBL_DIR, exist_ok=True)
