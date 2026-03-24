@@ -2,7 +2,7 @@ from ultralytics.data.split import autosplit
 from pathlib import Path
 
 # Define the root directory of your dataset
-DATASET_ROOT = Path(r"D:\SD\Ethan-dev\Datasets\DronesetV2")
+DATASET_ROOT = Path(r"D:\SD\Ethan-dev\Datasets\DroneSetV3")
 IMAGES_DIR = DATASET_ROOT / "images"
 
 # Run the autosplit utility

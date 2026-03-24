@@ -4,8 +4,8 @@ import shutil
 import re
 
 # --- CONFIGURATION ---
-IMG_DIR = r"D:\SD\Ethan-dev\Datasets\LRDDV2\images"
-LBL_DIR = r"D:\SD\Ethan-dev\Datasets\LRDDV2\labels"
+IMG_DIR = r"D:\SD\Ethan-dev\Datasets\DroneSetV3\images"
+LBL_DIR = r"D:\SD\Ethan-dev\Datasets\DroneSetV3\labels"
 DISCARD_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\discards\images"
 DISCARD_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\discards\labels"
 LAST_FILE_TRACKER = "last_reviewed_file.txt" 

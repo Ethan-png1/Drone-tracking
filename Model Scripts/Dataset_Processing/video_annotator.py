@@ -3,15 +3,15 @@ import os
 
 # --- CONFIGURATION ---
 # Change this to the path of your video file
-VIDEO_PATH = r"D:\SD\Ethan-dev\Datasets\videos\2026-03-17 20-04-58.mp4"
+VIDEO_PATH = r"D:\SD\Ethan-dev\Datasets\videos\war3.mp4"
 
 # Folders where the extracted images and corresponding YOLO labels will be saved
-OUTPUT_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\custom_dataset\images"
-OUTPUT_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\custom_dataset\labels"
+OUTPUT_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\WarSet\images"
+OUTPUT_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\WarSet\labels"
 
 # How many frames to skip (e.g., 30 means we only look at 1 frame every second for a 30fps video)
 # Set to 1 if you want to look at every single frame.
-FRAME_INTERVAL = 30 
+FRAME_INTERVAL = 5 
 
 os.makedirs(OUTPUT_IMG_DIR, exist_ok=True)
 os.makedirs(OUTPUT_LBL_DIR, exist_ok=True)
@@ -114,7 +114,7 @@ def main():
             # 3. SAVE
             elif key == ord('s'):
                 if boxes:
-                    img_name = f"frame_{frame_count:06d}.jpg"
+                    img_name = f"frame_{frame_count:06d}.png"
                     lbl_name = f"frame_{frame_count:06d}.txt"
                     img_path = os.path.join(OUTPUT_IMG_DIR, img_name)
                     lbl_path = os.path.join(OUTPUT_LBL_DIR, lbl_name)
