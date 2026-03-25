@@ -29,9 +29,11 @@ def main():
         cos_lr=True,         
         mosaic=1.0,
         copy_paste=0.0,
-        mixup=0.1,          
-        blur=0.1,           
-        scale=0.5,          
+        mixup=0.1,                    
+        scale=0.5,
+        hsv_h=0.015,  # minor hue shifts
+        hsv_s=0.7,    # helps model ignore "perfect" sim colors
+        hsv_v=0.4,    # helps model handle real-world lighting          
         
         # --- SYSTEM ---
         project=r"D:\SD\Ethan-dev\Models\runs",

@@ -1,17 +1,16 @@
 from ultralytics.data.split import autosplit
-from pathlib import Path
 
-# Define the root directory of your dataset
-DATASET_ROOT = Path(r"D:\SD\Ethan-dev\Datasets\DroneSetV3")
-IMAGES_DIR = DATASET_ROOT / "images"
 
-# Run the autosplit utility
-# It will generate 'autosplit_train.txt' and 'autosplit_val.txt' 
-# one directory level above the 'images' folder (i.e., inside 'custom_drone_dataset/')
+
 autosplit(
-    path=IMAGES_DIR,
-    weights=(0.7, 0.2, 0.1),       # 80% Train, 20% Validation, 0% Test
-    annotated_only=False            # Ensures only labeled images are included
+    path=r"D:\SD\Ethan-dev\Datasets\SimData\images",
+    weights=(1.0, 0, 0),       
+    annotated_only=True            
 )
 
-print(f"Split files generated inside: {DATASET_ROOT.resolve()}")
+autosplit(
+    path=r"D:\SD\Ethan-dev\Datasets\RealWorld\images",
+    weights=(0.8, 0.1, 0.1),       
+    annotated_only=True            
+)
+

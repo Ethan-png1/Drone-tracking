@@ -1,9 +1,13 @@
-path: D:/SD/Ethan-dev/Datasets/DronesetV2
+path: D:/SD/Ethan-dev/Datasets
 
-train: autosplit_train.txt
-val: autosplit_val.txt
-test: autosplit_test.txt
+train:
+  - SimData/autosplit_train.txt
+  - RealWorld/autosplit_train.txt
 
-nc: 1
-names: ['drone']
+val: RealWorld/autosplit_val.txt
+test: RealWorld/autosplit_test.txt
+
+
+names:
+  0: drone
 
