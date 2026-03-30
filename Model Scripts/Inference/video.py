@@ -4,11 +4,11 @@ from ultralytics import YOLO
 
 def main():
     # 1. Load your best model
-    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V4\weights\best.pt')
+    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V5\weights\best.pt')
 
     # 2. CONFIGURATION
     # REPLACE THIS with the actual path to your video file
-    video_path = r"D:\SD\Ethan-dev\Datasets\videos\dronesim.mp4" 
+    video_path = r"D:\SD\Ethan-dev\Datasets\videos\testsim.mp4" 
     
     # How often to process a frame? (Set this to 1 for smooth video playback)
     frame_interval = 1 
