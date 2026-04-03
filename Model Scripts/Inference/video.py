@@ -4,7 +4,7 @@ from ultralytics import YOLO
 
 def main():
     # 1. Load your best model
-    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V5\weights\best.pt')
+    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V6\weights\best.pt')
 
     # 2. CONFIGURATION
     # REPLACE THIS with the actual path to your video file

@@ -10,9 +10,8 @@ def main():
         data=r"D:\SD\Ethan-dev\custom_data.yaml",
 
         # --- DURATION ---
-        epochs=100,          
-        patience=50,
-        freeze=10,         
+        epochs=200,          
+        patience=35,       
         
         # --- SAFETY ---
         # save_period=25,
@@ -27,17 +26,26 @@ def main():
         optimizer='auto', 
         lr0=0.0001,   
         cos_lr=True,         
-        mosaic=1.0,
-        copy_paste=0.0,
-        mixup=0.1,                    
+        box=8.0,      
+        # --- Geometric ---
+        degrees=90,
+        translate=0.25,
         scale=0.5,
-        hsv_h=0.015,  # minor hue shifts
-        hsv_s=0.7,    # helps model ignore "perfect" sim colors
-        hsv_v=0.4,    # helps model handle real-world lighting          
+        shear=5.0,
+        perspective=0.001,
+        flipud=0.3,
+        fliplr=0.3,
+        mosaic=1.0,
+        # --- ColorSpace ---
+        hsv_h=0.015,  
+        hsv_s=0.5,    
+        hsv_v=0.4,    
+
+
         
         # --- SYSTEM ---
         project=r"D:\SD\Ethan-dev\Models\runs",
-        name="yolov8_Drone_V5",  
+        name="yolov8_Drone_V6",  
         
         # --- MEMORY SAFETY ---
         cache=False,                     
