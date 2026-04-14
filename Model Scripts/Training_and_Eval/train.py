@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO("yolov8m.pt")
+    model = YOLO(r"D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V6\weights\best.pt")
 
     
 
@@ -10,8 +10,8 @@ def main():
         data=r"D:\SD\Ethan-dev\custom_data.yaml",
 
         # --- DURATION ---
-        epochs=300,          
-        patience=50,       
+        epochs=200,          
+        patience=30,       
         
         # --- SAFETY ---
         # save_period=25,
@@ -24,7 +24,7 @@ def main():
         
         # --- HYPERPARAMETERS ---
         optimizer='auto', 
-        lr0=0.001,   
+        lr0=0.0001,   
         cos_lr=True,         
         box=8.0,      
         # --- Geometric ---
@@ -46,7 +46,7 @@ def main():
         
         # --- SYSTEM ---
         project=r"D:\SD\Ethan-dev\Models\runs",
-        name="yolov8_Drone_V7",  
+        name="yolov8_Drone_V8",  
         
         # --- MEMORY SAFETY ---
         cache=False,                     
