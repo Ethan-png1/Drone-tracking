@@ -242,7 +242,7 @@ def draw_trail(frame, history, color=(0, 255, 180)):
 
 
 def main():
-    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V6\weights\best.pt')
+    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V7\weights\best.pt')
 
     print("Please select a video file...")
     video_path = pick_video_file()
@@ -266,6 +266,9 @@ def main():
         max_missing=15
     )
 
+    skip_frames = 2  # process every Nth frame (1 = no skipping, 2 = 2x speed, etc.)
+    frame_count = 0
+
     print("Running... Press 'q' to quit.")
 
     while True:
@@ -273,12 +276,16 @@ def main():
         if not success:
             break
 
+        frame_count += 1
+        if frame_count % skip_frames != 0:
+            continue
+
         results = model.track(
             frame,
             tracker="botsort.yaml",
             conf=0.03,
             iou=0.45,
-            imgsz=1280,
+            imgsz=640,
             persist=True,
             save=False,
             verbose=False
