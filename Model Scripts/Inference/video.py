@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 import tkinter as tk
 from tkinter import filedialog
 from ultralytics import YOLO
@@ -242,7 +243,7 @@ def draw_trail(frame, history, color=(0, 255, 180)):
 
 
 def main():
-    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V7\weights\best.pt')
+    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V4\weights\best.pt')
 
     print("Please select a video file...")
     video_path = pick_video_file()
@@ -257,16 +258,24 @@ def main():
 
     vid_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     vid_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    src_fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
     cv2.namedWindow("YOLOv8 Drone Tracker", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("YOLOv8 Drone Tracker", min(vid_w, 1280), min(vid_h, 720))
+
+    skip_frames = 2  # process every Nth frame (1 = no skipping, 2 = 2x speed, etc.)
+
+    base, _ = os.path.splitext(video_path)
+    out_path = base + "_tracked.mp4"
+    out_fps = src_fps / skip_frames
+    fourcc = cv2.VideoWriter.fourcc(*"mp4v")
+    writer = cv2.VideoWriter(out_path, fourcc, out_fps, (vid_w, vid_h))
+    print(f"Saving output to: {out_path}")
 
     tracker = HysteresisTracker(
         conf_init=0.5,
         conf_keep=0.2,
         max_missing=15
     )
-
-    skip_frames = 2  # process every Nth frame (1 = no skipping, 2 = 2x speed, etc.)
     frame_count = 0
 
     print("Running... Press 'q' to quit.")
@@ -335,10 +344,12 @@ def main():
                     conf                   # this is already the decayed_conf from tracker.update()
                 )
 
+        writer.write(annotated_frame)
         cv2.imshow("YOLOv8 Drone Tracker", annotated_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+    writer.release()
     cap.release()
     cv2.destroyAllWindows()
     print("\nDone!")
