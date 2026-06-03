@@ -1,6 +1,6 @@
 # Drone Detection in High-Clutter Backgrounds
 
-A YOLOv8-based pipeline for detecting and tracking small drones in visually complex environments. Uses Unreal Engine 4 (via AirSim) to generate synthetic training data alongside real-world footage, and runs real-time inference with a Kalman filter tracker.
+A YOLOv8-based pipeline for detecting and tracking small drones in visually complex environments. Uses Unreal Engine 4 to generate synthetic training data alongside real-world footage, and runs real-time inference with a Kalman filter tracker.
 
 ## Project Structure
 
@@ -9,7 +9,6 @@ A YOLOv8-based pipeline for detecting and tracking small drones in visually comp
 │   ├── Dataset_Processing/   # Tools for building and cleaning datasets
 │   ├── Inference/            # Run detection on images or video
 │   └── Training_and_Eval/    # Train and evaluate models
-├── Airsim Scripts/           # AirSim simulation integration
 ├── custom_data.yaml          # YOLO dataset config (points to ./Datasets)
 └── requirements.txt          # Python dependencies
 ```
