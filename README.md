@@ -113,3 +113,8 @@ After placing data, run `autosplit.py` to generate the split list files referenc
 - PyTorch (CUDA 12.1)
 - OpenCV
 - NumPy / SciPy
+
+
+## Demo
+https://github.com/user-attachments/assets/56f75f33-b73d-4661-920e-65c260f5bd21
+
