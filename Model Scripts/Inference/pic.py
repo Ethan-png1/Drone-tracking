@@ -1,50 +1,42 @@
+from pathlib import Path
 from ultralytics import YOLO
-import os
 import yaml
 
-def main():
-    # 1. Load the model
-    model_path = '../Models/runs/yolov8compare/best_v8n.pt'
-    model = YOLO(model_path)
+_ROOT = Path(__file__).resolve().parents[2]
+_RUNS = _ROOT / "Models" / "runs"
 
-    # 2. RUN VALIDATION (For the Numbers)
-    # plots=True saves the confusion matrix and the batch mosaics
+def main():
+    model = YOLO(str(_RUNS / "yolov8compare" / "best_v8n.pt"))
+
     print("--- Running Validation Metrics ---")
     metrics = model.val(
-        data='../custom_data.yaml', 
+        data=str(_ROOT / "custom_data.yaml"),
         split='val',
-        project='../Models/runs/yolov8compare/validation_results',
-        plots=True, # This saves the standard validation plots
-        save=True   
+        project=str(_RUNS / "yolov8compare" / "validation_results"),
+        plots=True,
+        save=True
     )
 
     print("Performance on Validation Set:")
     print(f"  mAP50-95: {metrics.box.map:.4f}")
     print(f"  mAP50: {metrics.box.map50:.4f}")
 
-    # 3. RUN PREDICTION (For the Report Images)
-    # This generates individual high-res images, not grids
     print("\n--- Generating Report Images ---")
-    
-    # Load the data.yaml to find where your validation images are
-    with open('../custom_data.yaml', 'r') as f:
-        data_cfg = yaml.safe_load(f)
-        
-    # Assuming your yaml has 'val: path/to/images'
-    val_images_path = r"C:\Users\jegma\OneDrive\Desktop\SD\Ethan-dev\Datasets\Drone_dataset_smallobj\val\images" 
-    
-    # Run inference specifically to save images
+
+    # Update this path to your validation images directory
+    val_images_path = str(_ROOT / "Datasets" / "Drone_dataset_smallobj" / "val" / "images")
+
     model.predict(
         source=val_images_path,
-        project='../Models/runs/yolov8compare/report_images', # Separate folder
+        project=str(_RUNS / "yolov8compare" / "report_images"),
         save=True,
-        conf=0.25,      # Filter out low confidence noise for cleaner images
-        line_width=2,   # Make boxes slightly thinner so they don't cover the drone
-        max_det=10,     # Limit detections per frame (cleaner)
-        save_txt=False, # We just want images
-        save_conf=True  # Show confidence scores
+        conf=0.25,
+        line_width=2,
+        max_det=10,
+        save_txt=False,
+        save_conf=True
     )
-    print(f"Individual frames saved to: ../Models/runs/yolov8compare/report_images")
+    print(f"Individual frames saved to: {_RUNS / 'yolov8compare' / 'report_images'}")
 
 if __name__ =='__main__':
     main()

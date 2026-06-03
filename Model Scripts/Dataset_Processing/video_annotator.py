@@ -1,20 +1,36 @@
 import cv2
 import os
+import tkinter as tk
+from tkinter import filedialog
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[2]
 
 # --- CONFIGURATION ---
-# Change this to the path of your video file
-VIDEO_PATH = r"D:\SD\Ethan-dev\Datasets\videos\war3.mp4"
+# Folders where extracted images and YOLO labels will be saved.
+# Update the dataset name (e.g. "WarSet") to match your target dataset.
+OUTPUT_IMG_DIR = str(_ROOT / "Datasets" / "WarSet" / "images")
+OUTPUT_LBL_DIR = str(_ROOT / "Datasets" / "WarSet" / "labels")
 
-# Folders where the extracted images and corresponding YOLO labels will be saved
-OUTPUT_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\WarSet\images"
-OUTPUT_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\WarSet\labels"
-
-# How many frames to skip (e.g., 30 means we only look at 1 frame every second for a 30fps video)
-# Set to 1 if you want to look at every single frame.
-FRAME_INTERVAL = 5 
+# How many frames to skip (e.g. 5 means one frame every 5 frames).
+# Set to 1 to annotate every frame.
+FRAME_INTERVAL = 5
 
 os.makedirs(OUTPUT_IMG_DIR, exist_ok=True)
 os.makedirs(OUTPUT_LBL_DIR, exist_ok=True)
+
+
+def pick_video_file():
+    root = tk.Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+    path = filedialog.askopenfilename(
+        title="Select a Video File",
+        initialdir=str(_ROOT / "Datasets" / "videos"),
+        filetypes=[("Video files", "*.mp4 *.avi *.mov *.mkv"), ("All files", "*.*")]
+    )
+    root.destroy()
+    return path
 
 # --- GLOBAL VARIABLES FOR DRAWING ---
 drawing = False
@@ -51,7 +67,13 @@ def draw_rectangle(event, x, y, flags, param):
 
 def main():
     global clean_frame, display_frame, boxes
-    
+
+    print("Please select a video file...")
+    VIDEO_PATH = pick_video_file()
+    if not VIDEO_PATH:
+        print("No file selected. Exiting.")
+        return
+
     cap = cv2.VideoCapture(VIDEO_PATH)
     if not cap.isOpened():
         print(f"Error: Could not open video at {VIDEO_PATH}")

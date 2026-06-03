@@ -2,24 +2,37 @@
 __pycache__/
 *.pyc
 
-# Virtual environment
+# Virtual environments
 airsim_env/
+venv/
+Utils/
 
-# Dataset files (usually large)
+# Dataset files (large)
 Datasets/*
 
+# Large binary model and weight files
+*.pt
+*.onnx
+*.pth
+
+# Training run outputs
+Models/
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
 
 # VSCode / IDE files
 .vscode/
+.vs/
 
 # OS files
 .DS_Store
 Thumbs.db
-m
 
-# Python virtual env
-venv/
-
-.vs/
-
+# Build artifacts (Unreal Engine project)
 /Blocks

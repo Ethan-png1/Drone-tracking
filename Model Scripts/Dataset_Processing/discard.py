@@ -2,12 +2,16 @@ import cv2
 import os
 import shutil
 import re
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[2]
 
 # --- CONFIGURATION ---
-IMG_DIR = r"D:\SD\Ethan-dev\Datasets\DroneSetV3\images"
-LBL_DIR = r"D:\SD\Ethan-dev\Datasets\DroneSetV3\labels"
-DISCARD_IMG_DIR = r"D:\SD\Ethan-dev\Datasets\discards\images"
-DISCARD_LBL_DIR = r"D:\SD\Ethan-dev\Datasets\discards\labels"
+# Update the dataset name (e.g. "DroneSetV3") to match the dataset you want to review.
+IMG_DIR       = str(_ROOT / "Datasets" / "DroneSetV3" / "images")
+LBL_DIR       = str(_ROOT / "Datasets" / "DroneSetV3" / "labels")
+DISCARD_IMG_DIR = str(_ROOT / "Datasets" / "discards" / "images")
+DISCARD_LBL_DIR = str(_ROOT / "Datasets" / "discards" / "labels")
 LAST_FILE_TRACKER = "last_reviewed_file.txt" 
 BACKUP_YES_TRACKER = "backup_last_kept.txt"
 

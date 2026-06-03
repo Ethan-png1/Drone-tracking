@@ -1,8 +1,16 @@
+from pathlib import Path
 from ultralytics import YOLO
 from ultralytics.utils import LOGGER
 
+_ROOT = Path(__file__).resolve().parents[2]
+
+# Update BASE_MODEL to a local checkpoint path to resume training from a previous run,
+# or leave as a model name (e.g. "yolov8m.pt") to fine-tune from a pretrained base.
+BASE_MODEL = "yolov8m.pt"
+RUN_NAME = "yolov8_Drone_V9"
+
 def main():
-    model = YOLO(r"D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V7\weights\best.pt")
+    model = YOLO(BASE_MODEL)
 
     # Augmentation decay schedule
     # Values decay linearly from START -> END over the course of training
@@ -34,7 +42,7 @@ def main():
     model.add_callback("on_train_epoch_start", decay_augmentation)
 
     results = model.train(
-        data=r"D:\SD\Ethan-dev\custom_data.yaml",
+        data=str(_ROOT / "custom_data.yaml"),
 
         # --- DURATION ---
         epochs=200,
@@ -68,8 +76,8 @@ def main():
         hsv_v=0.4,
 
         # --- SYSTEM ---
-        project=r"D:\SD\Ethan-dev\Models\runs",
-        name="yolov8_Drone_V9",
+        project=str(_ROOT / "Models" / "runs"),
+        name=RUN_NAME,
 
         # --- MEMORY SAFETY ---
         cache=False,

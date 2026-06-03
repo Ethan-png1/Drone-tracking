@@ -6,7 +6,9 @@ import tkinter as tk
 import shutil
 
 IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp')
-starting_folder = r"C:\Users\jegma\OneDrive\Desktop\SD\Ethan-dev\Datasets"
+
+_ROOT = Path(__file__).resolve().parents[2]
+starting_folder = str(_ROOT / "Datasets")
 
 def pick_folder():
 

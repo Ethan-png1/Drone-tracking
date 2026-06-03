@@ -6,16 +6,20 @@ from tkinter import filedialog
 from ultralytics import YOLO
 
 
-def pick_video_file():
+def pick_file(title, filetypes):
     root = tk.Tk()
     root.withdraw()
     root.attributes('-topmost', True)
-    video_path = filedialog.askopenfilename(
+    path = filedialog.askopenfilename(title=title, filetypes=filetypes)
+    root.destroy()
+    return path
+
+
+def pick_video_file():
+    return pick_file(
         title="Select a Video File",
         filetypes=[("Video files", "*.mp4 *.avi *.mov *.mkv *.wmv *.flv *.webm"), ("All files", "*.*")]
     )
-    root.destroy()
-    return video_path
 
 
 class DroneKalmanFilter:
@@ -243,7 +247,15 @@ def draw_trail(frame, history, color=(0, 255, 180)):
 
 
 def main():
-    model = YOLO(r'D:\SD\Ethan-dev\Models\runs\yolov8_Drone_V4\weights\best.pt')
+    print("Please select a model file...")
+    model_path = pick_file(
+        title="Select a Model File",
+        filetypes=[("Model files", "*.pt *.onnx"), ("All files", "*.*")]
+    )
+    if not model_path:
+        print("No model selected. Exiting.")
+        return
+    model = YOLO(model_path)
 
     print("Please select a video file...")
     video_path = pick_video_file()

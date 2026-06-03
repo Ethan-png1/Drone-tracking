@@ -1,59 +1,116 @@
-# Identify-Small-Objects-in-High-Clutter-Backgrounds
-Algorithm for detecting and tracking drones in High Clutter Backgrounds. Uses Unreal Engine 4 to simulate real time camera input. 
+# Drone Detection in High-Clutter Backgrounds
 
-## Setup Guide
+A YOLOv8-based pipeline for detecting and tracking small drones in visually complex environments. Uses Unreal Engine 4 (via AirSim) to generate synthetic training data alongside real-world footage, and runs real-time inference with a Kalman filter tracker.
 
-This project requires **Git LFS** for large files and a **Python Virtual Environment** (`venv`) for dependency management.
+## Project Structure
 
-### 1. Download Large Files with Git LFS
+```
+├── Model Scripts/
+│   ├── Dataset_Processing/   # Tools for building and cleaning datasets
+│   ├── Inference/            # Run detection on images or video
+│   └── Training_and_Eval/    # Train and evaluate models
+├── Airsim Scripts/           # AirSim simulation integration
+├── custom_data.yaml          # YOLO dataset config (points to ./Datasets)
+└── requirements.txt          # Python dependencies
+```
 
-Large files (like the model weights, e.g., `yolo11n.pt`) are stored outside the main Git repository. You must install the LFS extension to correctly download them.
+> **Note:** `Datasets/`, `Models/`, and the `Blocks/` UE4 project are excluded from this repository due to size. Model weights (`.pt`, `.onnx`) must be downloaded or trained locally.
 
-1.  **Install Git LFS** (if you haven't already):
-    ```bash
-    git lfs install
-    ```
-2.  **Clone the Repository:**
-    ```bash
-    git clone <repository-url>
-    cd Identify-Small-Objects-in-High-Clutter-Backgrounds
-    ```
-3.  **Ensure LFS files are downloaded:** If you cloned before installing LFS, run:
-    ```bash
-    git lfs pull
-    ```
+## Setup
 
-### 2. Configure Python Environment
+### 1. Clone the repository
 
-We use a virtual environment to manage required libraries efficiently using the provided `requirements.txt` file.
-This project requires **Python 3.11.9**. Using a different version may cause dependency conflicts due to specific library behaviors (like the YOLO framework) or unexpected runtime issues.
+```bash
+git clone <repository-url>
+cd <repo-folder>
+```
 
-1.  **Create the Virtual Environment:**
-    ```bash
-    python3 -m venv venv
-    ```
-2.  **Activate the Environment:**
-    * **macOS / Linux:**
-        ```bash
-        source venv/bin/activate
-        ```
-    * **Windows (Command Prompt):**
-        ```bash
-        venv\Scripts\activate.bat
-        ```
-    *(Your terminal should now show `(venv)`)*
+### 2. Set up Python environment
 
-3.  **Install Dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+This project requires **Python 3.11.9**. Using a different version may cause dependency conflicts.
 
----
+```bash
+python -m venv venv
 
-## 3. Execution
+# Windows
+venv\Scripts\activate.bat
 
-1.  **Start UE4 Simulation:** Launch the Unreal Engine project and run the simulation level that outputs the live camera feed.
-2.  **Run the Detection Script:** With the Python environment active, execute the main script:
-    ```bash
-    python Model/Scripts/main_detection_script.py
-    ```
+# macOS / Linux
+source venv/bin/activate
+```
+
+### 3. Install PyTorch with CUDA (do this first)
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+### 4. Install remaining dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+### Run inference on a video
+
+Prompts you to select a model file and a video file via file dialogs.
+
+```bash
+python "Model Scripts/Inference/video.py"
+```
+
+**Controls during playback:**
+- `q` — quit
+
+### Train a model
+
+Edit `BASE_MODEL` and `RUN_NAME` at the top of the script, then:
+
+```bash
+python "Model Scripts/Training_and_Eval/train.py"
+```
+
+By default this fine-tunes from `yolov8m.pt` (auto-downloaded by ultralytics). Point `BASE_MODEL` to a previous checkpoint to continue training.
+
+### Evaluate a model
+
+Edit the `MODELS` list in the script to include your trained checkpoint paths, then:
+
+```bash
+python "Model Scripts/Training_and_Eval/eval.py"
+```
+
+### Dataset tools
+
+| Script | Purpose |
+|--------|---------|
+| `Dataset_Processing/video_annotator.py` | Extract and annotate frames from a video |
+| `Dataset_Processing/discard.py` | Interactively review and discard bad samples |
+| `Dataset_Processing/dataset_merger.py` | Merge multiple datasets with class ID remapping |
+| `Dataset_Processing/autosplit.py` | Split datasets into train/val/test splits |
+| `Dataset_Processing/changeFormat.py` | Export a trained model to ONNX format |
+
+## Dataset Layout
+
+Place your datasets under `Datasets/` following this structure:
+
+```
+Datasets/
+├── SimData/
+│   └── images/          # Synthetic frames from UE4
+├── RealWorld/
+│   ├── images/
+│   └── labels/          # YOLO-format .txt annotations
+└── ...
+```
+
+After placing data, run `autosplit.py` to generate the split list files referenced by `custom_data.yaml`.
+
+## Key Dependencies
+
+- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
+- PyTorch (CUDA 12.1)
+- OpenCV
+- NumPy / SciPy
